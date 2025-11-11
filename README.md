@@ -4,8 +4,8 @@ Sistema para gerenciamento de livros com Backend *(`Node.js + TypeScript + Expre
 
 ## Requisitos
 
-- Docker >= 29.0.0
-- docker-compose >= 1.29.2
+- Docker >= v29.0.0
+- docker-compose >= v2.40.3
 - Plataforma x86_64 (não testado em Arm)
 
 ## Executando 

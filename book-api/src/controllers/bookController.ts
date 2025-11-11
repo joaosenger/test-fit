@@ -18,7 +18,6 @@ export class BookController {
             const book = await this.bookService.addBook(bookData, file);
             res.status(201).json({ success: true, data: book });
         } catch (error) {
-            console.error('Error creating book:', error);
             res.status(500).json({ 
                 success: false,
                 message: 'Error creating book', 
@@ -33,7 +32,6 @@ export class BookController {
             const books = await this.bookService.findAllBooks();
             res.status(200).json({ success: true, data: books });
         } catch (error) {
-            console.error('Error retrieving books:', error);
             res.status(500).json({ 
                 success: false,
                 message: 'Error retrieving books', 
@@ -99,7 +97,6 @@ export class BookController {
                 });
             }
         } catch (error) {
-            console.error('Error updating book:', error);
             res.status(500).json({ 
                 success: false,
                 message: 'Error updating book', 
@@ -131,7 +128,6 @@ export class BookController {
                 });
             }
         } catch (error) {
-            console.error('Error deleting book:', error);
             res.status(500).json({ 
                 success: false,
                 message: 'Error deleting book', 
