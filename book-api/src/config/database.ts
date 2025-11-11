@@ -18,11 +18,11 @@ const sequelize = new Sequelize(
 const connectDatabase = async () => {
     try {
         await sequelize.authenticate();
-        console.log('✅ Connection to PostgreSQL has been established successfully.');
-        
-        // sincronização dos modelos com o banco de dados
+        console.log('✅ Connection to PostgreSQL has been established successfully');
+
+        // Modifies existing tables to match the models files.
         await sequelize.sync({ alter: true });
-        console.log('✅ Database synchronized.');
+        console.log('✅ Database synchronized');
     } catch (error) {
         console.error('❌ Unable to connect to the database:', error);
         process.exit(1);

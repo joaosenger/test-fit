@@ -12,7 +12,8 @@ const startServer = async () => {
         
         app.listen(PORT, () => {
             console.log(`🚀 Server is running on port ${PORT}`);
-            console.log(`📁 Uploads directory: ${process.env.UPLOAD_DIR || 'uploads'}`);
+            console.log(`📁 Uploads directory: ./${process.env.UPLOAD_DIR || 'uploads'}/`);
+            console.log(`📗 Swagger: http://localhost:${PORT}/api-docs/#/`)
         });
     } catch (error) {
         console.error('Failed to start server:', error);

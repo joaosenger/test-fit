@@ -5,12 +5,15 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "dev:db": "docker-compose up -d postgres && npm run dev",
     "build": "tsc",
     "start": "node dist/server.js",
     "start:prod": "NODE_ENV=production node dist/server.js",
-    "db:up": "docker-compose up -d",
-    "db:down": "docker-compose down",
-    "db:logs": "docker-compose logs -f postgres"
+    "docker:up": "docker-compose up -d --build",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:restart": "docker-compose restart",
+    "docker:clean": "docker-compose down -v"
   },
   "keywords": [],
   "author": "João Senger",

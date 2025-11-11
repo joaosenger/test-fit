@@ -1,77 +1,64 @@
-# Book Registration and Consultation API
+# Backend - Book API
 
-This project is a Node.js API built with TypeScript and Express.js for managing a book registration and consultation application. It allows users to register, search, update, and delete books.
+API para cadastro, consulta, edição e exclusão de livros.
 
-## Features
+## Tecnologias
 
-- Register a new book
-- Retrieve a list of books
-- Fetch details of a specific book
-- Update existing book information
-- Delete a book from the database
+- Node.js + TypeScript
+- Express.js
+- PostgreSQL
+- Sequelize ORM
+- Docker & Docker Compose
 
-## Project Structure
+## Arquitetura
 
-```
-book-api
-├── src
-│   ├── app.ts                # Main application file
-│   ├── server.ts             # Server startup file
-│   ├── controllers           # Contains controllers for handling requests
-│   │   └── bookController.ts
-│   ├── routes                # Contains route definitions
-│   │   └── bookRoutes.ts
-│   ├── models                # Contains data models
-│   │   └── Book.ts
-│   ├── services              # Contains business logic
-│   │   └── bookService.ts
-│   ├── middleware            # Contains middleware functions
-│   │   └── errorHandler.ts
-│   ├── config                # Configuration files
-│   │   └── database.ts
-│   └── types                 # Type definitions
-│       └── index.ts
-├── package.json              # NPM package configuration
-├── tsconfig.json             # TypeScript configuration
-└── README.md                 # Project documentation
-```
+A aplicação está usando a arquitetura **MVC (Model-View-Controller)** adaptada para API REST, também conhecida como **arquitetura em camadas (Layered Architecture).**
 
-## Installation
+[*Designing a REST API with Clean Architecture: A Practical Approach*](https://medium.com/@mariorodrguezgalicia/designing-a-rest-api-with-clean-architecture-a-practical-approach-3552dc5fc34b)
 
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   cd book-api
-   ```
+### Vantagens desta abordagem:
 
-2. Install dependencies:
-   ```
-   npm install
-   ```
+* Separação de responsabilidades - Cada camada tem uma função específica
+* Fácil manutenção - Código organizado de forma modular 
+* Testes - Cada camada pode ser testada isoladamente
+* Escalabilidade - Fácil de adicionar novas features
 
-3. Configure the database connection in `src/config/database.ts`.
+### Estrutura das Camadas
 
-## Running the Application
+**1. Routes** (`routes/bookRoutes.ts`)
 
-To start the server, run:
-```
-npm run start
-```
+* Define os endpoints da API
+* Mapeia URLs para os controllers
 
-The server will listen on the specified port (default is 3000).
+**2. Controllers** (`controllers/bookController.ts`)
 
-## API Endpoints
+* Recebe as requisições HTTP
+* Valida as entradas
+* Chama os services
+* Formata e retorna as respostas (json)
 
-- `POST /books` - Register a new book
-- `GET /books` - Retrieve all books
-- `GET /books/:id` - Retrieve a book by ID
-- `PUT /books/:id` - Update a book by ID
-- `DELETE /books/:id` - Delete a book by ID
+**3. Services** (`services/bookService.ts`)
 
-## Error Handling
+* Contém a lógica de negócio
+* Manipula os dados
+* Interage com os models
+* Gerencia arquivos (upload/put/delete de imagens)
 
-The application includes middleware for handling errors, ensuring that appropriate responses are sent for any issues encountered during request processing.
+**4. Models** (`models/Book.ts`)
 
-## License
+* Define a estrutura (modelo) dos dados (Sequelize ORM)
+* Representa as tabelas do banco de dados
 
-This project is licensed under the MIT License.
+**5. Middleware** (`middleware/*.ts`)
+
+* `upload.ts`: Processa o upload de arquivos (por enquanto apenas a imagem de capa do livro)
+* `errorHandler.ts`: Tratamento de erros (*500 - internal server error*)
+
+**6. Config** (`config/*.ts`)
+
+* `database.ts`: Configuração do banco de dados
+* `swagger.ts`: Configuração da documentação
+
+**7. Types** (`types/index.ts`)
+
+* Definiçao de tipos para o TypeScript

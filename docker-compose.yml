@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: book-api-postgres
+    container_name: book-postgres
     environment:
       POSTGRES_USER: bookuser
       POSTGRES_PASSWORD: bookpass
@@ -13,10 +11,59 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U bookuser"]
+      test: ["CMD-SHELL", "pg_isready -U bookuser -d bookdb"]
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - book-network
+
+  api:
+    build:
+      context: ./book-api
+      dockerfile: Dockerfile
+    container_name: book-api
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: bookdb
+      DB_USER: bookuser
+      DB_PASSWORD: bookpass
+      PORT: 8000
+      NODE_ENV: production
+      UPLOAD_DIR: uploads
+      MAX_FILE_SIZE: 5242880
+    volumes:
+      - ./book-api/uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - book-network
+
+  frontend:
+    build:
+      context: ./book-frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+    container_name: book-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: http://localhost:8000
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - book-network
 
 volumes:
   postgres_data:
+
+networks:
+  book-network:
+    driver: bridge

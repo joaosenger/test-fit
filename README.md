@@ -1,56 +1,96 @@
-## Backend - Book API
+# Book Management System
 
-### Arquitetura
+Sistema para gerenciamento de livros com Backend *(`Node.js + TypeScript + Express.js`)* e Frontend *(`React.js + TypeScript`)*
 
-A aplicação está usando a arquitetura **MVC (Model-View-Controller)** adaptada para API REST, também conhecida como **arquitetura em camadas (Layered Architecture).**
+## Requisitos
 
-[*Designing a REST API with Clean Architecture: A Practical Approach*](https://medium.com/@mariorodrguezgalicia/designing-a-rest-api-with-clean-architecture-a-practical-approach-3552dc5fc34b)
+- Docker >= 29.0.0
+- docker-compose >= 1.29.2
+- Plataforma x86_64 (não testado em Arm)
 
-#### Vantagens desta abordagem:
+## Executando 
 
-* Separação de responsabilidades - Cada camada tem uma função específica
-* Fácil manutenção - Código organizado de forma modular 
-* Testes - Cada camada pode ser testada isoladamente
-* Escalabilidade - Fácil de adicionar novas features
+```bash
+# Executa todo o sistema (Backend + Frontend + Banco de dados)
+docker-compose up -d --build
 
-### Estrutura das Camadas
+# Acessar aplicações
+# Frontend: http://localhost:3000
+# API: http://localhost:8000
+# Swagger: http://localhost:8000/api-docs
+```
 
-**1. Routes** (`routes/bookRoutes.ts`)
+## Estrutura do Projeto
 
-* Define os endpoints da API
-* Mapeia URLs para os controllers
+```
+test-fit/
+├── book-api/          # Backend 
+├── book-frontend/     # Frontend
+└── docker-compose.yml # Orquestração dos containers
+```
 
-**2. Controllers** (`controllers/bookController.ts`)
+## Tecnologias
 
-* Recebe as requisições HTTP
-* Valida as entradas
-* Chama os services
-* Formata e retorna as respostas (json)
+### Backend
+- Node.js + TypeScript
+- Express.js
+- PostgreSQL + Sequelize
+- Swagger
 
-**3. Services** (`services/bookService.ts`)
+### Frontend
+- React + TypeScript
 
-* Contém a lógica de negócio
-* Manipula os dados
-* Interage com os models
-* Gerencia arquivos (upload/put/delete de imagens)
+## Documentação
 
-**4. Models** (`models/Book.ts`)
+- [📘 Documentação da API](./book-api/README.md)
+- [🎨 Documentação do Frontend](./book-frontend/README.md)
 
-* Define a estrutura (modelo) dos dados (Sequelize ORM)
-* Representa as tabelas do banco de dados
+## Comandos Docker
 
-**5. Middleware** (`middleware/*.ts`)
+```bash
+# Buildar e subir todos os serviços (BD + Backend + Frontend)
+docker-compose up -d --build
 
-* `upload.ts`: Processa o upload de arquivos (por enquanto apenas a imagem de capa do livro)
-* `errorHandler.ts`: Tratamento de erros (*500 - internal server error*)
+# Só executar, caso já tenha sido criado
+docker-compose up -d
 
-**6. Config** (`config/*.ts`)
+# Ver logs
+docker-compose logs -f
 
-* `database.ts`: Configuração do banco de dados
-* `swagger.ts`: Configuração da documentação
+# Parar serviços
+docker-compose down
 
-**7. Types** (`types/index.ts`)
+# Limpar tudo
+docker-compose down -v
+```
 
-* Definiçao de tipos para o TypeScript
+## Executar em modo de Desenvolvimento
 
-## Frontend - Livros
+### Executar localmente sem Docker
+
+**Backend:**
+```bash
+cd book-api
+npm install
+npm run dev:db
+```
+
+**Frontend:**
+```bash
+cd book-frontend
+npm install
+npm run dev
+```
+
+## Variáveis de Ambiente
+
+Copie os arquivos `.env.example` em cada projeto e configure:
+
+```bash
+cp book-api/.env.example book-api/.env
+cp book-frontend/.env.example book-frontend/.env
+```
+
+## Autor
+
+João Senger - [joaoantonio.senger@fit-tecnologia.org.br](mailto:joaoantonio.senger@fit-tecnologia.org.br)
