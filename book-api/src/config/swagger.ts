@@ -1,10 +1,27 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 import dotenv from 'dotenv';
-import path from 'path'
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
+const HOST = process.env.API_HOST || 'localhost';
+const PROTOCOL = process.env.API_PROTOCOL || 'http';
+
+// Define servidores: sempre mostra localhost + servidor configurado (se diferente)
+const servers = [
+    {
+        url: `http://localhost:${PORT}`,
+        description: 'Servidor local (desenvolvimento)',
+    },
+];
+
+// Se o host não for localhost, adiciona o servidor de produção
+if (HOST !== 'localhost') {
+    servers.push({
+        url: `${PROTOCOL}://${HOST}:${PORT}`,
+        description: 'Servidor de produção',
+    });
+}
 
 const options = {
     definition: {
@@ -18,19 +35,11 @@ const options = {
                 email: 'joaoantonio.senger@fit-tecnologia.org.br',
             },
         },
-        servers: [
-            {
-                url: `http://localhost:${PORT}`,
-                description: 'Servidor de desenvolvimento',
-            },
-        ],
+        servers: servers,
     },
-    apis: [
-        path.join(__dirname, '../routes/*.ts'),
-        path.join(__dirname, '../routes/*.js'),
-        path.join(__dirname, '../controllers/*.ts'),
-        path.join(__dirname, '../controllers/*.js'),
-    ],
+    apis: process.env.NODE_ENV === 'production' 
+        ? ['./dist/routes/*.js', './src/routes/*.ts'] 
+        : ['./src/routes/*.ts'],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);

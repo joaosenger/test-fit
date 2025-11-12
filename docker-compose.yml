@@ -35,11 +35,19 @@ services:
       NODE_ENV: production
       UPLOAD_DIR: uploads
       MAX_FILE_SIZE: 5242880
+      API_HOST: ${API_HOST:-localhost}
+      API_PROTOCOL: ${API_PROTOCOL:-http}
     volumes:
       - ./book-api/uploads:/app/uploads
     depends_on:
       postgres:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/books', (r) => process.exit(r.statusCode === 200 ? 0 : 1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     restart: unless-stopped
     networks:
       - book-network
@@ -49,14 +57,15 @@ services:
       context: ./book-frontend
       dockerfile: Dockerfile
       args:
-        VITE_API_URL: http://localhost:8000
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
     container_name: book-frontend
     ports:
       - "3000:3000"
     environment:
-      VITE_API_URL: http://localhost:8000
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
     depends_on:
-      - api
+      api:
+        condition: service_healthy
     restart: unless-stopped
     networks:
       - book-network
