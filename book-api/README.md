@@ -62,3 +62,11 @@ A aplicação está usando a arquitetura **MVC (Model-View-Controller)** adaptad
 **7. Types** (`types/index.ts`)
 
 * Definiçao de tipos para o TypeScript
+
+## Executando os testes
+
+Atualmente usamos o `jest` para realizar os testes unitários e de integração.
+
+```bash
+npm run test
+```
