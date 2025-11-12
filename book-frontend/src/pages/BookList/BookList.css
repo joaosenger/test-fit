@@ -1,0 +1,80 @@
+.book-list-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.book-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.book-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.book-list-search-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.page-title {
+  font-size: 40px;
+  font-weight: 700;
+  color: #222222;
+}
+
+.btn-new {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222222;
+  background: none;
+  padding: 8px 16px;
+  transition: opacity 0.2s;
+}
+
+.btn-new:hover {
+  opacity: 0.7;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.no-books {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+  font-size: 18px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 20px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 32px;
+  }
+
+  .btn-new {
+    font-size: 20px;
+  }
+
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+}

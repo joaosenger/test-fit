@@ -1,0 +1,151 @@
+.book-detail-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.book-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.book-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #222222;
+  background: none;
+  padding: 8px 16px;
+  transition: opacity 0.2s;
+}
+
+.btn-back:hover {
+  opacity: 0.7;
+}
+
+.header-actions {
+  display: flex;
+  gap: 24px;
+}
+
+.btn-edit {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222222;
+  background: none;
+  padding: 8px 16px;
+  transition: opacity 0.2s;
+}
+
+.btn-edit:hover {
+  opacity: 0.7;
+}
+
+.btn-delete {
+  font-size: 24px;
+  font-weight: 600;
+  color: #dc2626;
+  background: none;
+  padding: 8px 16px;
+  transition: opacity 0.2s;
+}
+
+.btn-delete:hover {
+  opacity: 0.7;
+}
+
+.book-detail-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 60px;
+  align-items: start;
+}
+
+.book-detail-title {
+  font-size: 40px;
+  font-weight: 700;
+  color: #222222;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.book-detail-author {
+  font-size: 20px;
+  font-weight: 400;
+  color: #222222;
+  margin-bottom: 8px;
+}
+
+.book-detail-date {
+  font-size: 20px;
+  font-weight: 400;
+  color: #666;
+  margin-bottom: 32px;
+}
+
+.book-detail-description {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #222222;
+  text-align: justify;
+}
+
+.book-detail-image-container {
+  background-color: #E0E0E2;
+  border-radius: 12px;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 40px;
+}
+
+.book-detail-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 968px) {
+  .book-detail-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .book-detail-title {
+    font-size: 32px;
+  }
+
+  .book-detail-author,
+  .book-detail-date {
+    font-size: 18px;
+  }
+
+  .btn-back,
+  .btn-edit,
+  .btn-delete {
+    font-size: 20px;
+  }
+
+  .book-detail-image-container {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
