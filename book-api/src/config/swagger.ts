@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 8000;
 const HOST = process.env.API_HOST || 'localhost';
 const PROTOCOL = process.env.API_PROTOCOL || 'http';
 
-// Define servidores: sempre mostra localhost + servidor configurado (se diferente)
 const servers = [
     {
         url: `http://localhost:${PORT}`,
@@ -15,7 +14,6 @@ const servers = [
     },
 ];
 
-// Se o host não for localhost, adiciona o servidor de produção
 if (HOST !== 'localhost') {
     servers.push({
         url: `${PROTOCOL}://${HOST}:${PORT}`,
