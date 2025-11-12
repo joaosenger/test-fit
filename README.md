@@ -10,9 +10,12 @@ Sistema para gerenciamento de livros com Backend *(`Node.js + TypeScript + Expre
 
 ## Executando 
 
+Crie o arquivo `.env` para o backend conforme exemplo dentro da pasta `book-api`.
+Crie o arquivo `.env`para o frontend conforme exemplo dentro da pasta `book-frontend`.
+
 ```bash
 # Executa todo o sistema (Backend + Frontend + Banco de dados)
-docker-compose up -d --build
+docker compose up -d --build
 
 # Acessar aplicações
 # Frontend: http://localhost:3000
@@ -49,19 +52,19 @@ test-fit/
 
 ```bash
 # Buildar e subir todos os serviços (BD + Backend + Frontend)
-docker-compose up -d --build
+docker compose up -d --build
 
 # Só executar, caso já tenha sido criado
-docker-compose up -d
+docker compose up -d
 
 # Ver logs
-docker-compose logs -f
+docker compose logs -f
 
 # Parar serviços
-docker-compose down
+docker compose down
 
 # Limpar tudo
-docker-compose down -v
+docker compose down -v
 ```
 
 ## Executar em modo de Desenvolvimento
