@@ -3,9 +3,9 @@ services:
     image: postgres:15-alpine
     container_name: book-postgres
     environment:
-      POSTGRES_USER: bookuser
-      POSTGRES_PASSWORD: bookpass
-      POSTGRES_DB: bookdb
+      POSTGRES_USER: ${POSTGRES_USER:-bookuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bookpass}
+      POSTGRES_DB: ${POSTGRES_DB:-bookdb}
     ports:
       - "5432:5432"
     volumes:
@@ -28,9 +28,9 @@ services:
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
-      DB_NAME: bookdb
-      DB_USER: bookuser
-      DB_PASSWORD: bookpass
+      DB_NAME: ${POSTGRES_DB:-bookdb}
+      DB_USER: ${POSTGRES_USER:-bookuser}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-bookpass}
       PORT: 8000
       NODE_ENV: production
       UPLOAD_DIR: uploads
@@ -57,12 +57,10 @@ services:
       context: ./book-frontend
       dockerfile: Dockerfile
       args:
-        VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
+        VITE_API_URL: ${VITE_API_URL}
     container_name: book-frontend
     ports:
       - "3000:3000"
-    environment:
-      VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
     depends_on:
       api:
         condition: service_healthy
