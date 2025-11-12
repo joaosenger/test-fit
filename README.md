@@ -11,7 +11,7 @@ Sistema para gerenciamento de livros com Backend *(`Node.js + TypeScript + Expre
 ## Executando 
 
 Crie o arquivo `.env` para o backend conforme exemplo dentro da pasta `book-api`.
-Crie o arquivo `.env`para o frontend conforme exemplo dentro da pasta `book-frontend`.
+Crie o arquivo `.env` na raiz do projeto conforme modelo do arquivo `.env.example`.
 
 ```bash
 # Executa todo o sistema (Backend + Frontend + Banco de dados)
